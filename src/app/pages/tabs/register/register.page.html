@@ -1,0 +1,288 @@
+<!-- <form [formGroup]="registerForm" (ngSubmit)="register()">
+  <div class="mb-3">
+    <label class="form-label">First Name</label>
+    <input type="text" class="form-control" formControlName="firstName" />
+  </div>
+  <div class="mb-3">
+    <label class="form-label">Last Name</label>
+    <input type="text" class="form-control" formControlName="lastName" />
+  </div>
+  <div class="mb-3">
+    <label class="form-label">Email Address</label>
+    <input type="email" class="form-control" formControlName="email" />
+  </div>
+  <div class="mb-3">
+    <label class="form-label">Password</label>
+    <input type="password" class="form-control" formControlName="password" />
+  </div>
+  <div class="mb-3">
+    <label class="form-label">ConfirmPassword</label>
+    <input
+      type="password"
+      class="form-control"
+      formControlName="confirmPassword"
+    />
+  </div>
+  <div class="mb-3">
+    <label class="form-label">Status</label>
+    <input type="text" class="form-control" formControlName="status" />
+  </div>
+  <div class="mb-3">
+    <label class="form-label">Type</label>
+    <input type="text" class="form-control" formControlName="type" />
+  </div>
+  <div class="mb-3">
+    <label class="form-label">Phone</label>
+    <input type="tel" class="form-control" formControlName="phone" />
+  </div>
+  <div class="mb-3">
+    <label class="form-label">Profile Image</label>
+    <input
+      class="form-control"
+      type="file"
+      (change)="onFileSelected($event)"
+      accept="image/png, image/jpeg"
+    />
+  </div>
+  <button
+    type="submit"
+    class="btn btn-primary"
+    [disabled]="registerForm.invalid"
+  >
+    Register
+  </button>
+</form> -->
+
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/login"></ion-back-button>
+    </ion-buttons>
+    <ion-title>Create Account</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-padding">
+  <form
+    [formGroup]="registerForm"
+    (ngSubmit)="register()"
+    class="ion-margin-bottom"
+  >
+    <ion-list lines="none">
+      <ion-item color="light" class="ion-margin-bottom">
+        <ion-icon name="person" slot="start" color="primary"></ion-icon>
+        <ion-input
+          type="text"
+          name="firstName"
+          formControlName="firstName"
+          placeholder="First Name"
+          required
+          ngDefaultControl
+        ></ion-input>
+      </ion-item>
+      <ion-text
+        color="danger"
+        *ngIf="!firstNameFormControl?.valid && firstNameFormControl?.touched"
+      >
+        <p class="errorMsg">* Please enter your first name.</p>
+      </ion-text>
+      <ion-item color="light" class="ion-margin-bottom">
+        <ion-icon name="person" slot="start" color="primary"></ion-icon>
+        <ion-input
+          type="text"
+          name="lastName"
+          formControlName="lastName"
+          placeholder="Last Name"
+          required
+          ngDefaultControl
+        ></ion-input>
+      </ion-item>
+      <ion-text
+        color="danger"
+        *ngIf="!lastNameFormControl?.valid && lastNameFormControl?.touched"
+      >
+        <p class="errorMsg">* Please enter your last name.</p>
+      </ion-text>
+      <ion-item color="light" class="ion-margin-bottom">
+        <ion-icon name="mail" slot="start" color="primary"></ion-icon>
+        <ion-input
+          type="email"
+          name="email"
+          email
+          formControlName="email"
+          placeholder="Email"
+          required
+          ngDefaultControl
+        ></ion-input>
+      </ion-item>
+      <ion-text
+        color="danger"
+        *ngIf="!emailFormControl?.valid && emailFormControl?.touched"
+      >
+        <p class="errorMsg">* Please enter a valid email address.</p>
+      </ion-text>
+      <ion-item color="light" class="ion-margin-bottom">
+        <ion-icon name="key" slot="start" color="primary"></ion-icon>
+        <ion-input
+          type="password"
+          name="password"
+          formControlName="password"
+          placeholder="Password"
+          required
+          minlength="8"
+          ngDefaultControl
+        ></ion-input>
+      </ion-item>
+      <ion-text
+        color="danger"
+        *ngIf="!passwordFormControl?.valid && passwordFormControl?.touched"
+      >
+        <p class="errorMsg">* Password must be minimum of 8 characters long.</p>
+      </ion-text>
+      <ion-item color="light" class="ion-margin-bottom">
+        <ion-icon name="key" slot="start" color="primary"></ion-icon>
+
+        <ion-input
+          type="password"
+          name="confirmPassword"
+          formControlName="confirmPassword"
+          placeholder="Confirm Password"
+          required
+          minlength="8"
+          ngDefaultControl
+        ></ion-input>
+      </ion-item>
+      <ion-text
+        color="danger"
+        *ngIf="!confirmPasswordFormControl?.valid && confirmPasswordFormControl?.touched"
+      >
+        <p class="errorMsg">
+          * Confirm Password must be minimum of 8 characters long.
+        </p>
+      </ion-text>
+      <ion-text
+        color="danger"
+        *ngIf="!confirmPasswordFormControl?.valid && confirmPasswordFormControl?.value !== passwordFormControl?.value"
+      >
+        <p class="errorMsg">
+          * Password mismatch! You have entered a different password.
+        </p>
+      </ion-text>
+      <ion-item color="light" class="ion-margin-bottom">
+        <ion-icon name="call" slot="start" color="primary"></ion-icon>
+        <ion-input
+          type="tel"
+          name="phone"
+          phone
+          formControlName="phone"
+          placeholder="Phone"
+          minlength="10"
+          maxlength="10"
+          required
+          ngDefaultControl
+        ></ion-input>
+      </ion-item>
+      <ion-text
+        color="danger"
+        *ngIf="!phoneFormControl?.valid && phoneFormControl?.touched"
+      >
+        <p class="errorMsg">* Please enter a valid phone number.</p>
+      </ion-text>
+      <ion-item color="light" class="ion-margin-bottom">
+        <ion-icon name="person" slot="start" color="primary"></ion-icon>
+        <ion-input
+          name="user"
+          phone
+          mask="000-000-0000"
+          formControlName="type"
+          placeholder="Type"
+          required
+          ngDefaultControl
+        ></ion-input>
+      </ion-item>
+      <ion-text
+        color="danger"
+        *ngIf="!typeFormControl?.valid && typeFormControl?.touched"
+      >
+        <p class="errorMsg">* Please enter a valid role.</p>
+      </ion-text>
+      <!-- <ion-item>
+        <h4>Profile Image</h4>
+        <input
+          type="file"
+          (change)="onFileSelected($event)"
+          accept="image/png, image/jpeg"
+        />
+        <p>
+          <img *ngIf="profile_image" [src]="profile_image" />
+        </p>
+      </ion-item> -->
+
+      <br />
+
+      <div class="itemImage" *ngIf="!profile_image" (click)="changeImage()">
+        <ion-icon name="cloud-upload-outline" color="primary"></ion-icon>
+        <p>Upload item image here</p>
+      </div>
+
+      <input
+        type="file"
+        accept="image/jpeg;image/png"
+        #filePicker
+        (change)="onFileSelected($event)"
+      />
+
+      <div
+        class="itemImage imageDiv"
+        *ngIf="profile_image"
+        (click)="changeImage()"
+      >
+        <ion-img [src]="profile_image"></ion-img>
+      </div>
+      <!--
+      <div
+        class="itemImage"
+        *ngIf="!profile_image"
+        (click)="onFileSelected($event)"
+      >
+        <ion-icon name="cloud-upload-outline" color="primary"></ion-icon>
+        <p>Upload item image here</p>
+      </div>
+
+      <input
+        type="file"
+        accept="image/jpeg;image/png"
+        #filePicker
+        (click)="onFileSelected($event)"
+      />
+
+      <div
+        class="itemImage imageDiv"
+        *ngIf="!profile_image"
+        (click)="onFileSelected($event)"
+      >
+        <ion-img [src]="profile_image"></ion-img>
+      </div> -->
+    </ion-list>
+
+    <ion-button
+      *ngIf="!isLoading"
+      [disabled]="!registerForm.valid || (confirmPasswordFormControl?.value !== passwordFormControl?.value)"
+      expand="block"
+      shape="round"
+      type="submit"
+      color="primary"
+      >SIGN UP</ion-button
+    >
+
+    <div class="ion-text-center" *ngIf="isLoading">
+      <ion-button
+        shape="round"
+        color="primary"
+        [disabled]="!registerForm.valid || (confirmPasswordFormControl?.value !== passwordFormControl?.value)"
+      >
+        <ion-spinner name="circles" color="light"></ion-spinner
+      ></ion-button>
+    </div>
+  </form>
+</ion-content>

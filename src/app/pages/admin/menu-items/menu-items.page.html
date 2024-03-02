@@ -1,0 +1,92 @@
+<ion-header [translucent]="true">
+  <ion-toolbar color="primary">
+    <ion-title>
+      <ion-label color="dark">RESTAURANT MENU ITEMS </ion-label>
+    </ion-title>
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/pages/admin"></ion-back-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content color="light">
+  <div *ngIf="isLoading" class="ion-text-center align-spinner">
+    <ion-spinner color="primary"></ion-spinner>
+  </div>
+
+  <app-empty-screen
+    *ngIf="isLoading && items.length <= 0"
+    [model]="model"
+  ></app-empty-screen>
+  <!-- *ngIf="!isLoading && restaurants"-->
+  <ion-list>
+    <ion-item-divider>LIST OF MENU ITEMS</ion-item-divider>
+    <ion-item-group class="ion-padding">
+      <ion-item
+        lines="full"
+        class="ion-no-padding"
+        *ngFor="let item of items$ | async  "
+      >
+        <ion-thumbnail slot="start">
+          <ion-img
+            *ngIf="item.cover"
+            [src]="serverUrl + menuItemUrl + item.cover"
+          ></ion-img>
+        </ion-thumbnail>
+        <ion-label>
+          <ion-label class="ion-padding-bottom">{{item?.name}}</ion-label>
+          <ion-text color="medium" class="ion-text-justify">
+            <p class="ion-text-wrap">{{item.price | currency}}</p>
+            <p class="ion-text-wrap">
+              <strong>Veg: </strong>{{item.isVeg ? "Vegetarian":
+              "Non-Vegetarian"}} <strong>Status: </strong>{{item.status ?
+              "Available": "Out of stock"}}
+            </p>
+          </ion-text>
+          <ion-row>
+            <ion-buttons>
+              <ion-button type="button" size="small" color="primary">
+                <a
+                  [routerLink]="['/', 'pages', 'admin', 'menu-item-form', item.id]"
+                  ><ion-icon name="create-outline" color="secondary"></ion-icon
+                ></a>
+              </ion-button>
+              <!-- <ion-button
+                fill="clear"
+                color="primary"
+                (click)="editRestaurant(item)"
+                ><ion-icon name="create-outline" color="secondary"></ion-icon
+              ></ion-button> -->
+              <ion-button
+                fill="clear"
+                color="primary"
+                (click)="deleteItemAlert(item)"
+                ><ion-icon name="trash-outline" color="danger"></ion-icon
+              ></ion-button>
+            </ion-buttons>
+          </ion-row>
+        </ion-label>
+      </ion-item>
+    </ion-item-group>
+  </ion-list>
+  <!--   *ngIf="!isLoading && restaurants.length > 0"-->
+  <ion-infinite-scroll threshold="15%">
+    <ion-infinite-scroll-content
+      loadingSpinner="circles"
+      loadingText="Loading more Addresses..."
+    ></ion-infinite-scroll-content>
+  </ion-infinite-scroll>
+</ion-content>
+
+<ion-footer>
+  <ion-toolbar color="light">
+    <ion-button
+      [routerLink]='["/", "pages", "admin", "add-menu-item"]'
+      fill="outline"
+      color="success"
+      expand="block"
+      class="ion-margin-horizontal"
+      >ADD NEW MENU ITEM</ion-button
+    >
+  </ion-toolbar>
+</ion-footer>

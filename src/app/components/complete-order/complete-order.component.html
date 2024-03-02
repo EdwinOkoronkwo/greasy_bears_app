@@ -1,0 +1,127 @@
+<ion-header class="ion-no-border">
+  <ion-toolbar>
+    <ion-title color="dark">COMPLETE ORDER</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <form [formGroup]="orderForm" (ngSubmit)="onOrderSubmit()">
+    <ion-list class="ion-padding-horizontal ion-margin-bottom">
+      <ion-item color="light" class="ion-margin-bottom">
+        <ion-select
+          aria-label="Fruit"
+          placeholder="Status"
+          label="Status"
+          name="status"
+          formControlName="status"
+          required
+          ngDefaultControl
+        >
+          <ion-select-option
+            *ngFor="let status of status$ | async"
+            [value]="status"
+            ngDefaultControl
+            >{{ status }}</ion-select-option
+          >
+        </ion-select>
+      </ion-item>
+      <ion-item color="light" class="ion-margin-bottom">
+        <ion-select
+          aria-label="Fruit"
+          placeholder="Payment Mode"
+          label="Payment Mode"
+          name="paymentMode"
+          formControlName="paymentMode"
+          required
+          ngDefaultControl
+        >
+          <ion-select-option
+            *ngFor="let pm of paymentMode$ | async"
+            [value]="pm"
+            ngDefaultControl
+            >{{ pm }}</ion-select-option
+          >
+        </ion-select>
+      </ion-item>
+      <ion-text
+        color="danger"
+        *ngIf="
+          !paymentModeFormControl?.valid && paymentModeFormControl?.touched
+        "
+      >
+        <p class="errorMsg">* Please select a Payment Mode</p>
+      </ion-text>
+      <ion-item color="light" class="ion-margin-bottom">
+        <ion-select
+          aria-label="Fruit"
+          placeholder="Payment Status"
+          label="Payment Status"
+          name="paymentStatus"
+          formControlName="paymentStatus"
+          required
+          ngDefaultControl
+        >
+          <ion-select-option
+            *ngFor="let ps of paymentStatus$ | async"
+            [value]="ps"
+            ngDefaultControl
+            >{{ ps }}</ion-select-option
+          >
+        </ion-select>
+      </ion-item>
+      <ion-item>
+        <ion-select
+          interface="popover"
+          label="Select Restaurant"
+          name="restaurantId"
+          formControlName="restaurantId"
+          required
+        >
+          <ion-select-option
+            *ngFor="let restaurant of restaurants$ | async"
+            [value]="restaurant.id"
+            >{{ restaurant.name }}</ion-select-option
+          >
+        </ion-select>
+      </ion-item>
+
+      <ion-text
+        color="danger"
+        *ngIf="
+          !restaurantIdFormControl?.valid && restaurantIdFormControl?.touched
+        "
+      >
+        <p class="errorMsg">* Please select a restaurant.</p>
+      </ion-text>
+
+      <ion-item>
+        <ion-input
+          type="text"
+          required
+          name="instruction"
+          formControlName="instruction"
+          label="Instruction"
+        >
+        </ion-input>
+      </ion-item>
+    </ion-list>
+
+    <div class="ion-padding-horizontal ion-text-center">
+      <ion-button
+        *ngIf="!isSubmitted"
+        expand="block"
+        type="submit"
+        color="primary"
+        [disabled]="!orderForm.valid"
+        >MAKE PAYMENT</ion-button
+      >
+      <ion-button
+        *ngIf="isSubmitted"
+        color="primary"
+        [disabled]="!orderForm.valid"
+      >
+        <ion-spinner name="crescent"></ion-spinner>
+      </ion-button>
+    </div>
+  </form>
+</ion-content>

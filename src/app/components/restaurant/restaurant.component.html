@@ -1,0 +1,30 @@
+<ion-item lines="none">
+  <ion-thumbnail slot="start">
+    <ion-img
+      *ngIf="restaurant.cover"
+      [src]="serverUrl + restaurantUrl + restaurant.cover"
+    ></ion-img>
+  </ion-thumbnail>
+  <ion-label>
+    <h4>{{ restaurant.name }}</h4>
+    <ion-text color="medium">
+      <p class="pStyle">{{ restaurant.restaurantAddress }}</p>
+      <ion-text color="dark">
+        <span *ngIf="restaurant.rating > 0">
+          <ion-icon name="star"></ion-icon>
+          {{ restaurant.rating }} .
+        </span>
+        {{ restaurant.deliveryTime }} mins . ${{ restaurant.price }} for two
+      </ion-text>
+
+      <ion-text
+        color="tertiary"
+        *ngIf="restaurant.distance && restaurant.distance !== 0"
+      >
+        <p class="distance">
+          {{ restaurant.distance | number : "0.0-2" }} kms away
+        </p>
+      </ion-text>
+    </ion-text>
+  </ion-label>
+</ion-item>

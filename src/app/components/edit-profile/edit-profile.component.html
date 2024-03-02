@@ -1,0 +1,70 @@
+<ion-header class="ion-no-border">
+  <ion-toolbar>
+    <ion-title color="dark">EDIT ACCOUNT</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <form [formGroup]="editProfileForm" (ngSubmit)="onProfileSubmit()">
+    <ion-list class="ion-padding-horizontal ion-margin-bottom">
+      <ion-item>
+        <ion-label position="start">PROFILE IMAGE</ion-label>
+        <input type="file" (change)="onFileSelected($event)" />
+      </ion-item>
+      <ion-item class="ion-margin-vertical">
+        <ion-input
+          label="PHONE NUMBER"
+          type="tel"
+          minlength="10"
+          maxlength="10"
+          required
+          name="phone"
+          formControlName="phone"
+        >
+        </ion-input>
+        <ion-icon
+          *ngIf="phoneFormControl.valid"
+          name="checkmark-outline"
+          slot="end"
+          color="primary"
+        ></ion-icon>
+      </ion-item>
+
+      <!-- <ion-item>
+
+        <ion-input
+          type="email"
+          required
+          name="email"
+          formControlName="email"
+          label="EMAIL ADDRESS"
+        >
+        </ion-input>
+        <ion-icon
+          *ngIf="emailFormControl.valid"
+          name="checkmark-outline"
+          slot="end"
+          color="primary"
+        ></ion-icon>
+      </ion-item> -->
+    </ion-list>
+
+    <div class="ion-padding-horizontal ion-text-center">
+      <ion-button
+        *ngIf="!isSubmitted"
+        expand="block"
+        type="submit"
+        color="primary"
+        [disabled]="!editProfileForm.valid"
+        >UPDATE</ion-button
+      >
+      <ion-button
+        *ngIf="isSubmitted"
+        color="primary"
+        [disabled]="!editProfileForm.valid"
+      >
+        <ion-spinner name="crescent"></ion-spinner>
+      </ion-button>
+    </div>
+  </form>
+</ion-content>

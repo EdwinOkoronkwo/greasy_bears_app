@@ -1,0 +1,79 @@
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/admin"></ion-back-button>
+    </ion-buttons>
+    <ion-title>Add Item Category</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-padding">
+  <form
+    [formGroup]="itemCategoryForm"
+    (ngSubmit)="onCategorySubmit()"
+    class="ion-margin-bottom"
+  >
+    <ion-list lines="none">
+      <ion-item>
+        <ion-select
+          (ionChange)="onRestaurantChange($event)"
+          interface="popover"
+          label="Select Restaurant"
+          name="restaurantId"
+          formControlName="restaurantId"
+          required
+        >
+          <ion-select-option
+            *ngFor="let restaurant of restaurants$ | async"
+            [value]="restaurant.id"
+            >{{restaurant.name}}</ion-select-option
+          >
+        </ion-select>
+      </ion-item>
+
+      <ion-text
+        color="danger"
+        *ngIf="!restaurantIdFormControl.valid && restaurantIdFormControl.touched"
+      >
+        <p class="errorMsg">* Please select a restaurant.</p>
+      </ion-text>
+
+      <ion-item>
+        <ion-icon name="person" slot="start" color="primary"></ion-icon>
+        <ion-input
+          type="text"
+          name="name"
+          formControlName="name"
+          ngDefaultControl
+          required
+        ></ion-input>
+      </ion-item>
+      <ion-text
+        color="danger"
+        *ngIf="!nameFormControl.valid && nameFormControl.touched"
+      >
+        <p class="errorMsg">* Please enter Item Category name.</p>
+      </ion-text>
+    </ion-list>
+
+    <ion-button
+      *ngIf="!isLoading"
+      [disabled]="!itemCategoryForm.valid"
+      expand="block"
+      shape="round"
+      type="submit"
+      color="primary"
+      >Save</ion-button
+    >
+
+    <div class="ion-text-center" *ngIf="isLoading">
+      <ion-button
+        shape="round"
+        color="primary"
+        [disabled]="!itemCategoryForm.valid"
+      >
+        <ion-spinner name="circles" color="light"></ion-spinner
+      ></ion-button>
+    </div>
+  </form>
+</ion-content>

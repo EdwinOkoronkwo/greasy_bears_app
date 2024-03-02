@@ -1,0 +1,400 @@
+<ion-header [translucent]="true">
+  <ion-buttons slot="start">
+    <ion-back-button defaultHref="/admin"></ion-back-button>
+  </ion-buttons>
+  <ion-toolbar color="primary">
+    <!-- <ion-title>{{ restaurantId ? "Edit" : "Add " }}Restaurant</ion-title> -->
+    <ion-title>Add Restaurant</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <form [formGroup]="restaurantForm" (ngSubmit)="onRestaurantSubmit()">
+    <ion-list lines="none">
+      <ion-list-header>
+        <ion-label>Owner Details</ion-label>
+      </ion-list-header>
+      <ion-item color="light" class="ion-margin-bottom">
+        <ion-icon name="person" slot="start" color="primary"></ion-icon>
+        <ion-input
+          type="text"
+          name="ownerName"
+          formControlName="ownerName"
+          placeholder="Owner Name"
+          required
+          ngDefaultControl
+        ></ion-input>
+      </ion-item>
+      <ion-text
+        color="danger"
+        *ngIf="!ownerNameFormControl?.valid && ownerNameFormControl?.touched"
+      >
+        <p class="errorMsg">* Please enter your name.</p>
+      </ion-text>
+
+      <ion-item color="light" class="ion-margin-bottom">
+        <ion-icon name="mail" slot="start" color="primary"></ion-icon>
+        <ion-input
+          type="email"
+          name="email"
+          email
+          formControlName="email"
+          placeholder="Email"
+          required
+          ngDefaultControl
+        ></ion-input>
+      </ion-item>
+      <ion-text
+        color="danger"
+        *ngIf="!emailFormControl?.valid && emailFormControl?.touched"
+      >
+        <p class="errorMsg">* Please enter a valid email address.</p>
+      </ion-text>
+      <ion-item color="light" class="ion-margin-bottom">
+        <ion-icon name="key" slot="start" color="primary"></ion-icon>
+        <!-- <ion-icon color="primary" slot="start" name="key"></ion-icon> -->
+        <ion-input
+          type="password"
+          name="password"
+          formControlName="password"
+          placeholder="Password"
+          ngDefaultControl
+          required
+          minlength="8"
+        ></ion-input>
+      </ion-item>
+      <ion-text
+        color="danger"
+        *ngIf="!passwordFormControl?.valid && passwordFormControl?.touched"
+      >
+        <p class="errorMsg">* Password must be minimum of 8 characters long.</p>
+      </ion-text>
+
+      <ion-item color="light" class="ion-margin-bottom">
+        <ion-icon name="call" slot="start" color="primary"></ion-icon>
+        <ion-input
+          type="tel"
+          name="phone"
+          phone
+          formControlName="phone"
+          placeholder="Phone"
+          minlength="10"
+          maxlength="10"
+          required
+          ngDefaultControl
+        ></ion-input>
+      </ion-item>
+      <ion-text
+        color="danger"
+        *ngIf="!phoneFormControl?.valid && phoneFormControl?.touched"
+      >
+        <p class="errorMsg">* Please enter a valid phone number.</p>
+      </ion-text>
+    </ion-list>
+
+    <ion-list lines="none">
+      <ion-list-header>
+        <ion-label>Restaurant Details</ion-label>
+      </ion-list-header>
+      <ion-item color="light" class="ion-margin-bottom">
+        <ion-icon name="person" slot="start" color="primary"></ion-icon>
+        <ion-input
+          type="text"
+          name="name"
+          formControlName="name"
+          placeholder="Name"
+          required
+          ngDefaultControl
+        ></ion-input>
+      </ion-item>
+      <ion-text
+        color="danger"
+        *ngIf="!nameFormControl?.valid && nameFormControl?.touched"
+      >
+        <p class="errorMsg">* Please enter your name.</p>
+      </ion-text>
+      <ion-item color="light" class="ion-margin-bottom">
+        <ion-icon name="pin-outline" slot="start" color="primary"></ion-icon>
+        <ion-input
+          type="text"
+          name="postalCode"
+          formControlName="postalCode"
+          placeholder="Postal Code"
+          required
+          ngDefaultControl
+        ></ion-input>
+      </ion-item>
+      <ion-text
+        color="danger"
+        *ngIf="!postalCodeFormControl?.valid && postalCodeFormControl?.touched"
+      >
+        <p class="errorMsg">* Please enter the postal code.</p>
+      </ion-text>
+
+      <ion-item color="light" class="ion-margin-bottom">
+        <ion-textarea
+          type="text"
+          name="description"
+          formControlName="description"
+          placeholder="Description"
+          ngDefaultControl
+        ></ion-textarea>
+      </ion-item>
+
+      <ion-item color="light" class="ion-margin-bottom">
+        <ion-label>Opening Time</ion-label>
+        <ion-datetime
+          displayFormat="hh:mm A"
+          presentation="time"
+          name="openTime"
+          formControlName="openTime"
+          required
+          ngDefaultControl
+        ></ion-datetime>
+      </ion-item>
+
+      <ion-text
+        color="danger"
+        *ngIf="!openTimeFormControl?.valid && openTimeFormControl?.touched"
+      >
+        <p class="errorMsg">* Select Opening Time.</p>
+      </ion-text>
+
+      <ion-item color="light" class="ion-margin-bottom">
+        <ion-label>Closing Time</ion-label>
+        <ion-datetime
+          displayFormat="hh:mm A"
+          presentation="time"
+          name="closeTime"
+          formControlName="closeTime"
+          required
+          ngDefaultControl
+        ></ion-datetime>
+      </ion-item>
+      <ion-text
+        color="danger"
+        *ngIf="!closeTimeFormControl?.valid && closeTimeFormControl?.touched"
+      >
+        <p class="errorMsg">* Select closing Time.</p>
+      </ion-text>
+      <ion-item color="light" class="ion-margin-bottom">
+        <ion-select
+          label="City"
+          name="cityId"
+          formControlName="cityId"
+          required
+          ngDefaultControl
+        >
+          <ion-select-option
+            *ngFor="let city of cities$ | async"
+            [value]="city.id"
+            >{{city.name}}</ion-select-option
+          >
+        </ion-select>
+      </ion-item>
+
+      <ion-text
+        color="danger"
+        *ngIf="!cityIdFormControl?.valid && cityIdFormControl?.touched"
+      >
+        <p class="errorMsg">* Please select a city.</p>
+      </ion-text>
+
+      <ion-item color="light" class="ion-margin-bottom">
+        <ion-textarea
+          type="text"
+          name="restaurantAddress"
+          formControlName="restaurantAddress"
+          placeholder="Restaurant Address"
+          ngDefaultControl
+        ></ion-textarea>
+      </ion-item>
+
+      <ion-item color="light" class="ion-margin-bottom">
+        <ion-icon name="cash-outline" slot="start" color="primary"></ion-icon>
+        <ion-input
+          type="number"
+          name="price"
+          formControlName="price"
+          placeholder="Price"
+          required
+          ngDefaultControl
+        ></ion-input>
+      </ion-item>
+
+      <ion-text
+        color="danger"
+        *ngIf="!priceFormControl?.valid && priceFormControl?.touched"
+      >
+        <p class="errorMsg">* Please enter the price for two persons.</p>
+      </ion-text>
+
+      <ion-item color="light" class="ion-margin-bottom">
+        <ion-icon name="time-outline" slot="start" color="primary"></ion-icon>
+        <ion-input
+          type="number"
+          name="delivery_time"
+          formControlName="deliveryTime"
+          placeholder="Expected Delivery Time"
+          required
+          ngDefaultControl
+        ></ion-input>
+      </ion-item>
+      <ion-text
+        color="danger"
+        *ngIf="!deliveryTimeFormControl?.valid && deliveryTimeFormControl?.touched"
+      >
+        <p class="errorMsg">* Please enter expected delivery time.</p>
+      </ion-text>
+      <!-- <ion-item>
+          <h4>Cover</h4>
+          <input type="file" (change)="onFileSelected($event)" />
+          <p>
+            <img *ngIf="cover" [src]="cover" />
+          </p>
+        </ion-item> -->
+
+      <!-- <div class="mb-3">
+          <label class="form-label">Cover</label>
+          <input
+            class="form-control"
+            type="file"
+            (change)="onFileSelected($event)"
+            accept="image/png, image/jpeg"
+            ngDefaultControl
+          />
+        </div> -->
+      <ion-item>
+        <h4>Cover Image</h4>
+        <ion-input type="file" (change)="onFileSelected($event)" />
+        <p>
+          <ion-img *ngIf="cover_file" [src]="cover_file" />
+        </p>
+      </ion-item>
+
+      <!-- <br />
+
+        <div class="itemImage" *ngIf="!profile_image" (click)="changeImage()">
+          <ion-icon name="cloud-upload-outline" color="primary"></ion-icon>
+          <p>Upload item image here</p>
+        </div>
+
+        <input
+          type="file"
+          accept="image/jpeg;image/png"
+          #filePicker
+          (change)="onFileSelected($event)"
+        />
+
+        <div
+          class="itemImage imageDiv"
+          *ngIf="profile_image"
+          (click)="changeImage()"
+        >
+          <ion-img [src]="profile_image"></ion-img>
+        </div> -->
+
+      <ng-container>
+        <ion-list>
+          <ion-item color="light" class="ion-margin-bottom">
+            <ion-select
+              aria-label="Fruit"
+              placeholder="Status"
+              label="Status"
+              name="status"
+              formControlName="status"
+              required
+              ngDefaultControl
+            >
+              <ion-select-option
+                *ngFor="let status of status$ | async"
+                [value]="status"
+                ngDefaultControl
+                >{{status}}</ion-select-option
+              >
+            </ion-select>
+          </ion-item>
+          <ion-text
+            color="danger"
+            *ngIf="!statusFormControl?.valid && statusFormControl?.touched"
+          >
+            <p class="errorMsg">* Please select Status</p>
+          </ion-text>
+          <ion-item color="light" class="ion-margin-bottom">
+            <ion-select
+              aria-label="Fruit"
+              placeholder="Categories"
+              label="Categories"
+              name="categories"
+              formControlName="categories"
+              required
+              [multiple]="true"
+              ngDefaultControl
+            >
+              <ion-select-option
+                *ngFor="let category of categories$ | async"
+                [value]="category"
+                ngDefaultControl
+                >{{category}}</ion-select-option
+              >
+            </ion-select>
+          </ion-item>
+          <ion-text
+            color="danger"
+            *ngIf="!categoriesFormControl?.valid && categoriesFormControl?.touched"
+          >
+            <p class="errorMsg">* Please select Categories.</p>
+          </ion-text>
+          <ion-item>
+            <ion-select
+              aria-label="Fruit"
+              placeholder="Cuisines"
+              label="Cuisines"
+              name="cuisines"
+              formControlName="cuisines"
+              required
+              [multiple]="true"
+              ngDefaultControl
+            >
+              <ion-select-option
+                *ngFor="let cuisine of cuisines$ | async"
+                [value]="cuisine"
+                ngDefaultControl
+                >{{cuisine}}</ion-select-option
+              >
+            </ion-select>
+          </ion-item>
+          <ion-text
+            color="danger"
+            *ngIf="!cuisinesFormControl?.valid && cuisinesFormControl?.touched"
+          >
+            <p class="errorMsg">* Please select Cuisines.</p>
+          </ion-text>
+        </ion-list>
+        <!-- <ion-item color="light" class="ion-margin-bottom">
+                    <ion-input name="category" [(ngModel)]="category"></ion-input>
+                  </ion-item> -->
+      </ng-container>
+      <br />
+    </ion-list>
+
+    <ion-button
+      *ngIf="!isLoading"
+      expand="block"
+      shape="round"
+      type="submit"
+      color="primary"
+      [disabled]="!restaurantForm.valid"
+      >Save</ion-button
+    >
+    <div class="ion-text-center" *ngIf="isLoading">
+      <ion-button
+        shape="round"
+        color="primary"
+        [disabled]="!restaurantForm.valid"
+      >
+        <ion-spinner name="circles" color="light"></ion-spinner
+      ></ion-button>
+    </div>
+  </form>
+</ion-content>

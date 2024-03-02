@@ -1,0 +1,113 @@
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/admin"></ion-back-button>
+    </ion-buttons>
+    <ion-title>Add City</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-padding">
+  <form
+    [formGroup]="cityForm"
+    (ngSubmit)="onCitySubmit()"
+    class="ion-margin-bottom"
+  >
+    <ion-list lines="none">
+      <ion-item>
+        <ion-icon name="person" slot="start" color="primary"></ion-icon>
+        <ion-input
+          type="text"
+          name="name"
+          formControlName="name"
+          ngDefaultControl
+          required
+        ></ion-input>
+      </ion-item>
+      <ion-text
+        color="danger"
+        *ngIf="!nameFormControl.valid && nameFormControl.touched"
+      >
+        <p class="errorMsg">* Please enter city name.</p>
+      </ion-text>
+      <ion-item>
+        <ion-icon
+          name="location-outline"
+          slot="start"
+          color="primary"
+        ></ion-icon>
+        <ion-input
+          type="number"
+          name="lat"
+          formControlName="lat"
+          ngDefaultControl
+          required
+        ></ion-input>
+      </ion-item>
+      <ion-text
+        color="danger"
+        *ngIf="!latFormControl.valid && latFormControl.touched"
+      >
+        <p class="errorMsg">* Please enter City Latitude.</p>
+      </ion-text>
+      <ion-item>
+        <ion-icon
+          name="location-outline"
+          slot="start"
+          color="primary"
+        ></ion-icon>
+        <ion-input
+          type="number"
+          name="lng"
+          formControlName="lng"
+          ngDefaultControl
+          required
+        ></ion-input>
+      </ion-item>
+      <ion-text
+        color="danger"
+        *ngIf="!lngFormControl.valid && lngFormControl.touched"
+      >
+        <p class="errorMsg">* Please enter City Longitude.</p>
+      </ion-text>
+
+      <ion-item>
+        <ion-select
+          interface="popover"
+          label="Select Status"
+          name="status"
+          formControlName="status"
+          ngDefaultControl
+        >
+          <ion-select-option
+            *ngFor="let status of status$ | async"
+            [value]="status"
+            >{{status}}</ion-select-option
+          >
+        </ion-select>
+      </ion-item>
+      <ion-text
+        color="danger"
+        *ngIf="!statusFormControl?.valid && statusFormControl?.touched"
+      >
+        <p class="errorMsg">* Please select Status.</p>
+      </ion-text>
+    </ion-list>
+
+    <ion-button
+      *ngIf="!isLoading"
+      [disabled]="!cityForm.valid"
+      expand="block"
+      shape="round"
+      type="submit"
+      color="primary"
+      >Save</ion-button
+    >
+
+    <div class="ion-text-center" *ngIf="isLoading">
+      <ion-button shape="round" color="primary" [disabled]="!cityForm.valid">
+        <ion-spinner name="circles" color="light"></ion-spinner
+      ></ion-button>
+    </div>
+  </form>
+</ion-content>

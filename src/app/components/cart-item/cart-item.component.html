@@ -1,0 +1,16 @@
+<ion-item>
+  <ion-text color="success">
+    <span class="dotStyle">&#9679;</span>
+  </ion-text>
+  <ion-label class="ion-text-wrap"
+    ><h5>{{ item.name }}</h5></ion-label
+  >
+  <ion-row>
+    <ion-text class="ion-text-center quantity" color="success">{{
+      item.CartItem.quantity
+    }}</ion-text>
+  </ion-row>
+  <ion-text slot="end" color="dark" class="price ion-text-right">
+    ${{ item.price * item.CartItem.quantity | number : "0.2-2" }}
+  </ion-text>
+</ion-item>

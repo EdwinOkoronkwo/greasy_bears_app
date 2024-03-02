@@ -1,0 +1,17 @@
+<ion-header class="ion-justify-content-center">
+  <ion-toolbar color="tertiary">
+    <ion-title
+      >Total Orders:
+      <strong>{{totalPrice | currency}} </strong> ({{totalQuantity}}
+      ea)</ion-title
+    >
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/tabs/account"></ion-back-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<app-vertical-bar-chart></app-vertical-bar-chart>
+<br />
+<br />
+<app-pie-chart></app-pie-chart>

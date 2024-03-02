@@ -1,0 +1,99 @@
+<!-- <form [formGroup]="loginForm" (ngSubmit)="login()">
+  <div class="mb-3">
+    <label class="form-label">Email Address</label>
+    <input type="email" class="form-control" formControlName="email" />
+  </div>
+  <div class="mb-3">
+    <label class="form-label">Password</label>
+    <input type="password" class="form-control" formControlName="password" />
+  </div>
+  <button type="submit" class="btn btn-primary" [disabled]="loginForm.invalid">
+    Login
+  </button>
+</form> -->
+
+<ion-content class="ion-padding">
+  <ion-text class="ion-text-center" color="secondary">
+    <p class="marginTop">
+      <strong>Greasy Bear Foods</strong>
+    </p></ion-text
+  >
+
+  <ion-avatar>
+    <ion-img src="assets/imgs/bear.jpg"> </ion-img>
+  </ion-avatar>
+
+  <form [formGroup]="loginForm" (ngSubmit)="login()" class="ion-margin-bottom">
+    <ion-list lines="none">
+      <ion-item-group class="ion-margin-bottom">
+        <ion-item color="light">
+          <ion-icon name="mail" slot="start" color="primary"></ion-icon>
+          <ion-input
+            type="email"
+            name="email"
+            email
+            formControlName="email"
+            placeholder="Email"
+            required
+          ></ion-input>
+        </ion-item>
+        <ion-text
+          color="danger"
+          *ngIf="!emailFormControl?.valid && emailFormControl?.touched"
+        >
+          <p class="errorMsg">* Please enter a valid email address.</p>
+        </ion-text>
+      </ion-item-group>
+
+      <ion-item color="light">
+        <ion-icon name="key" slot="start" color="primary"></ion-icon>
+        <ion-icon
+          color="primary"
+          slot="end"
+          (click)="toggleType()"
+          [name]="type ? 'eye-outline' : 'eye-off-outline'"
+        ></ion-icon>
+        <ion-input
+          [type]="type ? 'password' : 'text'"
+          name="password"
+          formControlName="password"
+          placeholder="Password"
+          required
+          minlength="8"
+        ></ion-input>
+      </ion-item>
+      <ion-text
+        color="danger"
+        *ngIf="!passwordFormControl?.valid && passwordFormControl?.touched"
+      >
+        <p class="errorMsg">* Password must be minimum of 8 characters long.</p>
+      </ion-text>
+    </ion-list>
+
+    <p class="ion-text-right" routerLink="/login/forgot-password">
+      <ion-text id="forgot-password">Forgot Password?</ion-text>
+    </p>
+
+    <ion-button
+      *ngIf="!isLogin"
+      [disabled]="!loginForm.valid"
+      expand="block"
+      shape="round"
+      type="submit"
+      color="primary"
+      >SIGN IN</ion-button
+    >
+
+    <div class="ion-text-center" *ngIf="isLogin">
+      <ion-button shape="round" color="primary" [disabled]="!loginForm.valid">
+        <ion-spinner name="circles" color="light"></ion-spinner
+      ></ion-button>
+    </div>
+  </form>
+  <ion-text class="ion-text-center" color="primary" routerLink="/login/signup">
+    <p class="marginTop">
+      Don't have an account?
+      <strong>Sign Up!</strong>
+    </p>
+  </ion-text>
+</ion-content>

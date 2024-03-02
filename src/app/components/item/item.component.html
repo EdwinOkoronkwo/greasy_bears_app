@@ -1,0 +1,39 @@
+<ion-item class="ion-no-padding" [ngClass]="!item.status ? 'grayScale' : ''">
+  <ion-thumbnail slot="start">
+    <ion-img
+      *ngIf="item?.cover"
+      [src]="serverUrl + itemUrl + item.cover"
+    ></ion-img>
+  </ion-thumbnail>
+  <ion-label class="ion-text-wrap">
+    <ion-text>{{ item.name }}</ion-text>
+    <p *ngIf="item?.description">
+      {{ item.description }}
+    </p>
+    <ion-text
+      ><p>${{ item.price | number : "0.2-2" }}</p></ion-text
+    >
+  </ion-label>
+  <ion-row
+    slot="end"
+    *ngIf="!item?.quantity && item?.status"
+    (click)="quantityPlus()"
+  >
+    <ion-text class="add" color="secondary">Add</ion-text>
+  </ion-row>
+  <ion-row slot="end" *ngIf="item.quantity && item?.status">
+    <ion-icon
+      color="secondary"
+      name="remove-outline"
+      (click)="quantityMinus()"
+    ></ion-icon>
+    <ion-text class="ion-text-center quantity" color="secondary">{{
+      item.quantity
+    }}</ion-text>
+    <ion-icon
+      color="success"
+      name="add-outline"
+      (click)="quantityPlus()"
+    ></ion-icon>
+  </ion-row>
+</ion-item>

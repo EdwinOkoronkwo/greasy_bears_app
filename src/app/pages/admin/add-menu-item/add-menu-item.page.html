@@ -1,0 +1,222 @@
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/admin"></ion-back-button>
+    </ion-buttons>
+    <ion-title>Add Menu Item</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-padding">
+  <form
+    [formGroup]="menuItemForm"
+    (ngSubmit)="onItemSubmit()"
+    class="ion-margin-bottom"
+  >
+    <ion-list lines="none">
+      <ion-item>
+        <ion-select
+          (ionChange)="onRestaurantChange($event)"
+          interface="popover"
+          label="Select Restaurant"
+          name="restaurantId"
+          formControlName="restaurantId"
+          required
+        >
+          <ion-select-option
+            *ngFor="let restaurant of restaurants$ | async"
+            [value]="restaurant.id"
+            >{{restaurant.name}}</ion-select-option
+          >
+        </ion-select>
+      </ion-item>
+
+      <ion-text
+        color="danger"
+        *ngIf="!restaurantIdFormControl.valid && restaurantIdFormControl.touched"
+      >
+        <p class="errorMsg">* Please select a restaurant.</p>
+      </ion-text>
+
+      <div>
+        <ion-item>
+          <ion-select
+            interface="popover"
+            label="Select Category"
+            name="categoryId"
+            formControlName="categoryId"
+            ngDefaultControl
+            required
+          >
+            <ion-select-option
+              *ngFor="let category of categories$ | async"
+              [value]="category.id"
+              >{{category.name}}</ion-select-option
+            >
+          </ion-select>
+        </ion-item>
+
+        <ion-text
+          color="danger"
+          *ngIf="!categoryIdFormControl.valid && categoryIdFormControl.touched"
+        >
+          <p class="errorMsg">* Please select a category.</p>
+        </ion-text>
+      </div>
+
+      <ion-item>
+        <ion-icon name="person" slot="start" color="primary"></ion-icon>
+        <ion-input
+          type="text"
+          name="name"
+          formControlName="name"
+          ngDefaultControl
+          required
+        ></ion-input>
+      </ion-item>
+      <ion-text
+        color="danger"
+        *ngIf="!nameFormControl.valid && nameFormControl.touched"
+      >
+        <p class="errorMsg">* Please enter item name.</p>
+      </ion-text>
+
+      <ion-item>
+        <label for="description">Description</label>
+        <ion-textarea
+          type="text"
+          aria-label="description"
+          name="description"
+          formControlName="description"
+          ngDefaultControl
+          required
+        ></ion-textarea>
+      </ion-item>
+
+      <ion-item color="light" class="ion-margin-bottom">
+        <ion-icon name="cash-outline" slot="start" color="primary"></ion-icon>
+        <ion-input
+          type="number"
+          name="price"
+          type="text"
+          formControlName="price"
+          ngDefaultControl
+          required
+          placeholder="Price"
+        ></ion-input>
+      </ion-item>
+      <ion-text
+        color="danger"
+        *ngIf="!priceFormControl.valid && priceFormControl.touched"
+      >
+        <p class="errorMsg">* Please enter the price .</p>
+      </ion-text>
+      <ion-item>
+        <ion-select
+          interface="popover"
+          label="Select Status"
+          name="status"
+          formControlName="status"
+          ngDefaultControl
+        >
+          <ion-select-option
+            *ngFor="let status of status$ | async"
+            [value]="status"
+            >{{status}}</ion-select-option
+          >
+        </ion-select>
+      </ion-item>
+      <ion-text
+        color="danger"
+        *ngIf="!statusFormControl?.valid && statusFormControl?.touched"
+      >
+        <p class="errorMsg">* Please select Status.</p>
+      </ion-text>
+      <!-- <ion-item>
+        <label for="isVeg">Veg</label>
+        <ion-toggle
+          [value]="isVeg"
+          label="Veg"
+          aria-label="Veg"
+          slot="end"
+          name="veg"
+          formControlName="isVeg"
+          ngDefaultControl
+          color="primary"
+        ></ion-toggle>
+      </ion-item> -->
+
+      <ion-item>
+        <ion-select
+          interface="popover"
+          label="Select Veg"
+          name="veg"
+          formControlName="isVeg"
+          ngDefaultControl
+        >
+          <ion-select-option
+            *ngFor="let isVeg of isVeg$  | async "
+            [value]="isVeg"
+            ngDefaultControl
+            >{{isVeg}}</ion-select-option
+          >
+        </ion-select>
+      </ion-item>
+      <ion-text
+        color="danger"
+        *ngIf="!statusFormControl?.valid && statusFormControl?.touched"
+      >
+        <p class="errorMsg">* Please select Cuisines.</p>
+      </ion-text>
+
+      <br />
+
+      <div
+        class="itemImage"
+        *ngIf="!image || image === ''"
+        (click)="changeImage()"
+      >
+        <ion-icon name="cloud-upload-outline" color="primary"></ion-icon>
+        <p>Upload item image here</p>
+      </div>
+
+      <input
+        type="file"
+        accept="image/jpeg;image/png"
+        #filePicker
+        (change)="onFileChosen($event)"
+      />
+
+      <div
+        class="itemImage imageDiv"
+        *ngIf="image && image !== ''"
+        (click)="changeImage()"
+      >
+        <ion-img [src]="image"></ion-img>
+      </div>
+
+      <!-- <ion-button type="button" size="small" color="primary">ADD</ion-button>
+      <ion-button type="button" size="small" color="danger">CLEAR</ion-button> -->
+    </ion-list>
+
+    <ion-button
+      *ngIf="!isLoading"
+      [disabled]="!menuItemForm.valid"
+      expand="block"
+      shape="round"
+      type="submit"
+      color="primary"
+      >Save</ion-button
+    >
+
+    <div class="ion-text-center" *ngIf="isLoading">
+      <ion-button
+        shape="round"
+        color="primary"
+        [disabled]="!menuItemForm.valid"
+      >
+        <ion-spinner name="circles" color="light"></ion-spinner
+      ></ion-button>
+    </div>
+  </form>
+</ion-content>

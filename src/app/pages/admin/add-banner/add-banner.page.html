@@ -1,0 +1,66 @@
+<ion-header [translucent]="true">
+  <ion-toolbar color="primary">
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/admin"> </ion-back-button>
+    </ion-buttons>
+    <ion-title>Add Banner</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+  <form [formGroup]="bannerForm" (ngSubmit)="onBannerSubmit()">
+    <ion-item>
+      <h4>Banner</h4>
+      <input type="file" (change)="onFileSelected($event)" />
+      <p>
+        <img *ngIf="cover_file" [src]="cover_file" />
+      </p>
+    </ion-item>
+    <ion-item color="light" class="ion-margin-bottom">
+      <ion-select
+        aria-label="Fruit"
+        placeholder="Status"
+        label="Status"
+        name="status"
+        formControlName="status"
+        required
+        ngDefaultControl
+      >
+        <ion-select-option
+          [value]="status"
+          ngDefaultControl
+          *ngFor="let status of status$ | async"
+          >{{status}}</ion-select-option
+        >
+      </ion-select>
+    </ion-item>
+    <ion-item color="light" class="ion-margin-bottom">
+      <ion-select
+        aria-label="Fruit"
+        placeholder="Status"
+        label="Restaurant"
+        name="restaurantId"
+        formControlName="restaurantId"
+        required
+        ngDefaultControl
+      >
+        <ion-select-option
+          [value]="restaurant.id"
+          ngDefaultControl
+          *ngFor="let restaurant of restaurants$ | async"
+          >{{restaurant.name}}</ion-select-option
+        >
+      </ion-select>
+    </ion-item>
+    <ion-text
+      color="danger"
+      *ngIf="!statusFormControl?.valid && statusFormControl?.touched"
+    >
+      <p class="errorMsg">* Please select Status</p>
+    </ion-text>
+
+    <ion-button expand="block" class="ion-margin" color="primary" type="submit"
+      >Save</ion-button
+    >
+  </form>
+</ion-content>

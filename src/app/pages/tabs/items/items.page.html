@@ -1,0 +1,56 @@
+<ion-header class="ion-no-border">
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/tabs/home"></ion-back-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <app-restaurant-detail
+    [data]="data"
+    [isLoading]="isLoading"
+  ></app-restaurant-detail>
+  <ion-row class="ion-padding veg borderBottomSmall">
+    <ion-label>
+      <h4>VEG ONLY</h4>
+    </ion-label>
+    <ion-toggle
+      mode="md"
+      color="success"
+      (ionChange)="vegOnly($event)"
+      [(ngModel)]="isVeg"
+    ></ion-toggle>
+  </ion-row>
+
+  <app-loading-restaurant *ngIf="isLoading"></app-loading-restaurant>
+  <app-empty-screen
+    [model]="model"
+    *ngIf="!isLoading && categories?.length === 0"
+  ></app-empty-screen>
+
+  <ion-list lines="none" *ngFor="let category of categories$ | async">
+    <ion-list-header *ngIf="category.name && items.length > 0">
+      {{category.name}}
+    </ion-list-header>
+    <ng-container *ngFor="let item of items; let i = index">
+      <app-item
+        *ngIf="category.id === item.ItemCategoryId"
+        [item]="item"
+        [index]="i"
+        (add)="quantityPlus($event, item)"
+        (minus)="quantityMinus($event, item)"
+      >
+      </app-item>
+    </ng-container>
+  </ion-list>
+</ion-content>
+
+<ion-footer>
+  <ion-toolbar color="success">
+    <ion-button slot="end" fill="clear" color="white" (click)="viewCart()">
+      <ion-icon slot="end" name="basket-outline"></ion-icon>
+      VIEW CART
+    </ion-button>
+  </ion-toolbar>
+</ion-footer>
