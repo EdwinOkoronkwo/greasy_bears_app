@@ -1,13 +1,9 @@
 <ion-header [translucent]="true">
   <ion-toolbar color="primary">
     <ion-title>Admin Control Panel</ion-title>
-    <ion-buttons slot="end">
+    <ion-buttons slot="end" routerLink="/tabs/home">
       <ion-button fill="clear" (click)="auth.logout()">
-        <ion-icon
-          name="power-outline"
-          color="white"
-          slot="icon-only"
-        ></ion-icon>
+        <ion-icon name="home-outline" color="white" slot="icon-only"></ion-icon>
       </ion-button>
     </ion-buttons>
   </ion-toolbar>

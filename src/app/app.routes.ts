@@ -1,5 +1,5 @@
 import { Routes } from '@angular/router';
-import { AuthGuardService } from './services/auth.guard';
+//import { AuthGuardService } from './services/auth.guard';
 import { AuthGuard } from './guards/auth/auth.guard';
 
 export const routes: Routes = [
@@ -12,7 +12,7 @@ export const routes: Routes = [
     path: 'tabs',
     loadComponent: () =>
       import('./pages/tabs/tabs.page').then((m) => m.TabsPage),
-    // canLoad: [AuthGuard],
+    canLoad: [AuthGuard],
     data: {
       role: 'user',
     },
@@ -92,7 +92,7 @@ export const routes: Routes = [
   },
 
   {
-    path: 'pages/admin/add-menu-item',
+    path: 'add-menu-item',
     loadComponent: () =>
       import('./pages/admin/add-menu-item/add-menu-item.page').then(
         (m) => m.AddMenuItemPage
@@ -110,11 +110,11 @@ export const routes: Routes = [
     path: 'admin',
     loadComponent: () =>
       import('./pages/admin/admin.page').then((m) => m.AdminPage),
-    // canActivate: [AuthGuardService],
+    // canActivate: [AuthGuard],
     // canLoad: [AuthGuard],
-    data: {
-      role: 'admin',
-    },
+    // data: {
+    //   role: 'admin',
+    // },
   },
   {
     path: 'tabs/restaurants/:restaurantId',

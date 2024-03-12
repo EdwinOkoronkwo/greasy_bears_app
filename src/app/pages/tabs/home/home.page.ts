@@ -29,7 +29,12 @@ import {
 import { Restaurant } from 'src/app/interfaces/restaurant.interface';
 import { UserService } from 'src/app/services/user/user.service';
 import { addIcons } from 'ionicons';
-import { addOutline, chevronDownOutline, trophyOutline } from 'ionicons/icons';
+import {
+  addOutline,
+  chevronDownOutline,
+  gameControllerOutline,
+  trophyOutline,
+} from 'ionicons/icons';
 import {
   IonCard,
   IonCardContent,
@@ -130,6 +135,7 @@ export class HomePage {
       trophyOutline,
       addOutline,
       chevronDownOutline,
+      gameControllerOutline,
     });
     this.bannerService.getBanners().subscribe((result) => {
       this.banners = result;

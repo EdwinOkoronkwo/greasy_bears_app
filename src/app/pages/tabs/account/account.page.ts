@@ -10,7 +10,6 @@ import {
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { IonicModule, ModalController } from '@ionic/angular';
-import { LoginComponent } from 'src/app/components/login/login.component';
 import { Order } from 'src/app/models/order.model';
 import { Subscription, map } from 'rxjs';
 import { OrderService } from 'src/app/services/orders/orders.service';
@@ -56,7 +55,6 @@ import { Strings } from 'src/app/enum/strings';
     EditProfileComponent,
     CommonModule,
     FormsModule,
-    LoginComponent,
     IonHeader,
     IonToolbar,
     IonTitle,

@@ -132,23 +132,7 @@ export class ItemsPage implements OnInit {
       }
       this.id = paramMap.get('restaurantId');
       console.log('id: ', this.id);
-      this.getItems();
     });
-  }
-
-  async getItems() {
-    //return this.allItems;
-    this.isLoading = true;
-    this.allItems;
-    this.data = {};
-    setTimeout(async () => {
-      let data: any = this.restaurants.filter((x) => x.id == this.id);
-      this.data = data[0];
-      this.categories = this.categories.filter((x) => x.id == this.id);
-      this.items = this.allItems.filter((x) => x.id == this.id);
-      console.log('restaurant: ', this.data);
-      this.isLoading = false;
-    }, 1000);
   }
 
   onRestaurantChange(event: Event) {
@@ -170,12 +154,12 @@ export class ItemsPage implements OnInit {
     this.cartService.addCartToServer(formData).subscribe({
       next: (result) => {
         console.log(result);
-        alert('Cart was created successfully');
+        alert('Item was successfully added to cart');
         // this.router.navigate(['/login']);
       },
       error: (err) => {
         console.log(err);
-        alert('Registration failed!');
+        alert('Item addition failed!');
       },
     });
   }
@@ -184,17 +168,17 @@ export class ItemsPage implements OnInit {
     this.cartService.deleteCartToServer(item).subscribe({
       next: (result) => {
         console.log(result);
-        alert('Cart was deleted successfully');
+        alert('Item was removed from cart');
         //this.router.navigate(['/login']);
       },
       error: (err) => {
         console.log(err);
-        alert('Cart deletion failed!');
+        alert('Cart removal failed!');
       },
     });
   }
 
-  quantityPlus(item: any, index: any) {
+  addItem(item: any, index: any) {
     const formData: any = serialize(item, {
       dotsForObjectNotation: true,
     });
@@ -215,7 +199,7 @@ export class ItemsPage implements OnInit {
     }
   }
 
-  quantityMinus(index: any, item: any) {
+  subtractItem(index: any, item: any) {
     try {
       const index = this.allItems.findIndex((x) => x.id === item.id);
       if (this.items[index].quantity !== 0) {
@@ -234,3 +218,20 @@ export class ItemsPage implements OnInit {
     this.router.navigate([this.router.url + '/cart']);
   }
 }
+
+///////////////////////////////////////////////////////////////////////////////
+/////////////////////// OLD CODE ///////////////////////////////////////////////////
+// async getItems() {
+//   //return this.allItems;
+//   this.isLoading = true;
+//   this.allItems;
+//   this.data = {};
+//   setTimeout(async () => {
+//     let data: any = this.restaurants.filter((x) => x.id == this.id);
+//     this.data = data[0];
+//     this.categories = this.categories.filter((x) => x.id == this.id);
+//     this.items = this.allItems.filter((x) => x.id == this.id);
+//     console.log('restaurant: ', this.data);
+//     this.isLoading = false;
+//   }, 1000);
+// }

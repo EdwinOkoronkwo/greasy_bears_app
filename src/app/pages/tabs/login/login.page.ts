@@ -7,7 +7,7 @@ import {
   ReactiveFormsModule,
   Validators,
 } from '@angular/forms';
-import { Router } from '@angular/router';
+import { Router, RouterLink } from '@angular/router';
 import { IonicModule } from '@ionic/angular';
 import { addIcons } from 'ionicons';
 import { eyeOutline, key, mail } from 'ionicons/icons';
@@ -21,7 +21,13 @@ import { UserService } from 'src/app/services/user/user.service';
   templateUrl: './login.page.html',
   styleUrls: ['./login.page.scss'],
   standalone: true,
-  imports: [FormsModule, ReactiveFormsModule, CommonModule, IonicModule],
+  imports: [
+    FormsModule,
+    ReactiveFormsModule,
+    CommonModule,
+    IonicModule,
+    RouterLink,
+  ],
 })
 export class LoginPage {
   loginForm!: FormGroup;
@@ -76,7 +82,7 @@ export class LoginPage {
         localStorage.setItem('auth_token', response.token);
         console.log(response.token);
         let msg = 'Login was successful';
-        this.global.showAlert(msg);
+        this.global.successToast(msg);
         this.loginForm.reset();
         this.navigate(response?.user?.type);
         this.router.navigate(['/tabs/home']);

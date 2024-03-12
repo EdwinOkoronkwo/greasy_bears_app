@@ -38,8 +38,8 @@
         *ngIf="category.id === item.ItemCategoryId"
         [item]="item"
         [index]="i"
-        (add)="quantityPlus($event, item)"
-        (minus)="quantityMinus($event, item)"
+        (add)="addItem($event, item)"
+        (minus)="subtractItem($event, item)"
       >
       </app-item>
     </ng-container>

@@ -4,12 +4,12 @@
     <ion-buttons slot="start" *ngIf="urlCheck && urlCheck !== 'tabs'">
       <ion-back-button [defaultHref]="getPreviousUrl()"></ion-back-button>
     </ion-buttons>
-    <ion-buttons slot="end">
+    <!--[routerLink]="['pages', 'tabs', 'account']"-->
+    <ion-buttons slot="end" routerLink="/tabs/account">
       <ion-button fill="clear">
         <ion-icon
           name="person-outline"
           color="light"
-          routerLink="tabs/account"
           slot="icon-only"
         ></ion-icon>
       </ion-button>

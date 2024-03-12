@@ -20,9 +20,9 @@ export class PieChartComponent implements OnInit, OnDestroy {
   orderSub!: Subscription;
   private data!: [];
   private svg: any;
-  private margin = 50;
-  private width = 750;
-  private height = 600;
+  private margin = 25;
+  private width = 400;
+  private height = 300;
   private radius = Math.min(this.width, this.height) / 2 - this.margin;
   private colors: any;
 
@@ -82,7 +82,7 @@ export class PieChartComponent implements OnInit, OnDestroy {
       .style('stroke-width', '1px');
 
     // Add labels
-    const labelLocation = d3.arc().innerRadius(100).outerRadius(this.radius);
+    const labelLocation = d3.arc().innerRadius(30).outerRadius(this.radius);
 
     this.svg
       .selectAll('pieces')
@@ -95,7 +95,7 @@ export class PieChartComponent implements OnInit, OnDestroy {
         (d: any) => 'translate(' + labelLocation.centroid(d) + ')'
       )
       .style('text-anchor', 'middle')
-      .style('font-size', 14);
+      .style('font-size', 8);
   }
 
   ngOnDestroy() {

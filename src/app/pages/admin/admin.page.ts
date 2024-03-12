@@ -11,7 +11,7 @@ import {
   IonToolbar,
 } from '@ionic/angular/standalone';
 import { addIcons } from 'ionicons';
-import { powerOutline } from 'ionicons/icons';
+import { homeOutline, powerOutline } from 'ionicons/icons';
 import { AuthService } from 'src/app/services/auth/auth.service';
 
 @Component({
@@ -25,6 +25,7 @@ export class AdminPage implements OnInit {
   constructor(public auth: AuthService) {
     addIcons({
       powerOutline,
+      homeOutline,
     });
   }
 

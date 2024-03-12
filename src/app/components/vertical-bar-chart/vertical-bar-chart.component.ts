@@ -26,9 +26,9 @@ export class VerticalBarChartComponent implements OnInit, OnDestroy {
   orderSub!: Subscription;
   private data!: [];
   private svg: any;
-  private margin = 50;
-  private width = 750 - this.margin * 2;
-  private height = 400 - this.margin * 2;
+  private margin = 40;
+  private width = 400 - this.margin * 2;
+  private height = 250 - this.margin * 2;
 
   constructor(private orderService: OrderService) {
     this.orderSub = this.orderService.getOrdersPrice().subscribe((result) => {
@@ -63,7 +63,7 @@ export class VerticalBarChartComponent implements OnInit, OnDestroy {
       .scaleBand()
       .range([0, this.width])
       .domain(data.map((d) => d.itemName))
-      .padding(0.2);
+      .padding(0.3);
 
     // Draw the X-axis on the DOM
     this.svg
@@ -75,7 +75,7 @@ export class VerticalBarChartComponent implements OnInit, OnDestroy {
       .style('text-anchor', 'end');
 
     // Create the Y-axis band scale
-    const y = d3.scaleLinear().domain([0, 1000]).range([this.height, 0]);
+    const y = d3.scaleLinear().domain([0, 1600]).range([this.height, 0]);
 
     // Draw the Y-axis on the DOM
     this.svg.append('g').call(d3.axisLeft(y));

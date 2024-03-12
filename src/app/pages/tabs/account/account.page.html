@@ -130,7 +130,7 @@
         <ion-button slot="end" fill="clear" (click)="editProfile()"
           ><ion-text color="secondary">EDIT</ion-text></ion-button
         >
-        <ion-avatar *ngIf="profile.image" slot="start">
+        <ion-avatar *ngIf="profile?.image" slot="start">
           <ion-img [src]="serverUrl + profileUrl + profile?.image"> </ion-img>
         </ion-avatar>
         <ion-label>
